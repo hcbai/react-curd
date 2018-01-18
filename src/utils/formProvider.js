@@ -1,13 +1,13 @@
 //表单验证提取  封装高阶组件模型
 import React from 'react'
 
-function formProvider(field){
+function formProvider(fields){
     return function(Comp){
 
         const initialFormField = {};
-        for(const key in field) {
+        for(const key in fields) {
             initialFormField[key] = {
-                value:field[key].defaultValue,
+                value:fields[key].defaultValue,
                 error:''
             }
         }
@@ -23,8 +23,8 @@ function formProvider(field){
             }
             valueChange(fieldName, value) {
                 const {form} = this.state;
-                const newFieldState = {valid:false,value,error:''};
-                const fieldRules = field[fieldName].rules;
+                const newFieldState = {value,valid:true,error:''};
+                const fieldRules = fields[fieldName].rules;
                 for(let i = 0; i < fieldRules.length; i++){
                     const {pattern, error} = fieldRules[i];
                     let valid = false;
@@ -34,13 +34,13 @@ function formProvider(field){
                         valid = pattern.test(value)
                     }
                     if(!valid){
-                        newFieldState.valid = false;
+                        newFieldState.valid = true;
                         newFieldState.error = error;
                         break;
                     }
                 }
-                const newForm = {...form, [fieldName]:newFieldState};
-                const formVaild = Object.values(newForm).every(f => f.valid)
+                const newForm = {...form, [fieldName] : newFieldState};
+                const formVaild = Object.values(newForm).every(ref => ref.valid);
 
                 this.setState({
                     form:newForm,
@@ -49,9 +49,7 @@ function formProvider(field){
             }
             render(){
                 const {form, formVaild} = this.state;
-                return (
-                    <Comp {...this.props} form={form} formVaild={formVaild} onFormChange={this.valueChange} />
-                )
+                return <Comp {...this.props} form={form} formVaild={formVaild} onFormChange={this.valueChange} />
             }
         }
 
