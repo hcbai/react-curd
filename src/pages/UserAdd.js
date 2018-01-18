@@ -3,7 +3,7 @@ import React from 'react'
 class UserAdd extends React.Component{
     constructor(){
         super();
-        //改名用户数据表单形式
+        //改变用户数据表单形式
         this.state = {
             form:{
                 name:{
@@ -32,12 +32,12 @@ class UserAdd extends React.Component{
         const {form} = this.state;
         const newFiledObj = {valid:true,value,error:''};
 
-        switch(filed){
+        switch (filed) {
             case 'name': {
                 if(value.length >=5){
                     newFiledObj.error = '用户最多输入4个字',
                     newFiledObj.valid = false
-                } else if(value.length == 0) {
+                } else if(value.length === 0) {
                     newFiledObj.error = '请输入用户名',
                     newFiledObj.valid = false
                 }
@@ -65,6 +65,7 @@ class UserAdd extends React.Component{
                 [filed]:newFiledObj 
             }    
         })
+        console.log(this.state)
     };
     fromSubmit(e){
         e.preventDefault();
@@ -131,13 +132,15 @@ class UserAdd extends React.Component{
                     <form onSubmit={e=>this.fromSubmit(e)}>
                         <label htmlFor="name">用户名：</label>
                         <input type="text" id="name" 
-                        value={name.value} 
-                        onChange={e=>this.valueChange('name',e.target.value)}/>
+                            value={name.value} 
+                            onChange={e=>this.valueChange('name',e.target.value)}/>
+                        {!name.valid && <span>{name.error}</span>}
                         <br/>
                         <label htmlFor="age">年龄：</label>
                         <input type="number" id="age" 
-                        value={age.value} 
-                        onChange={e=>this.valueChange('age',e.target.value,'number')}/>
+                            value={age.value} 
+                            onChange={e=>this.valueChange('age',e.target.value,'number')}/>
+                        {!age.valid && <span>{age.error}</span>}
                         <br/>
                         <label htmlFor="">性别：</label>
                         <select value={gender.value} onChange={e=>this.valueChange('gender',e.target.value)}>
@@ -145,6 +148,7 @@ class UserAdd extends React.Component{
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
+                        {!gender.valid && <span>{gender.error}</span>}
                         <br/>
                         <input type="submit" value="提交"/>
                     </form>
