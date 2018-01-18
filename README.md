@@ -1,4 +1,4 @@
-# `http://blog.csdn.net/awaw00/article/category/6692955`
+## `http://blog.csdn.net/awaw00/article/category/6692955`
 
 ## 项目搭建，创建基本架构`cnpm init -y` ，下载核心包`cnpm i react react-dom react-router -S`
 
@@ -12,6 +12,8 @@
 * 新建/src/index.js和/public/index.html两个文件，分别作为应用的入口文件和页面的入口文件
 
 ## 配置路由 `import {Router, Route, HashHistory} from 'react-router'`
+
+## 注意：bug已经解决  注意 react-router 4.x 和之前版本不一样 
 
 
 
