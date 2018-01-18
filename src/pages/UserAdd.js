@@ -3,18 +3,67 @@ import React from 'react'
 class UserAdd extends React.Component{
     constructor(){
         super();
+        //改名用户数据表单形式
         this.state = {
-            name:'',
-            age:0,
-            gender:''
+            form:{
+                name:{
+                    valid:false,
+                    value:'',
+                    error:''
+                },
+                age:{
+                    valid:false,
+                    value:0,
+                    error:''
+                },
+                gender:{
+                    valid:false,
+                    value:'',
+                    error:''
+                }
+            }
         }
     };
     valueChange(filed, value, type = 'string'){
         if(type === 'number'){
             value = +value;
         }
+        //添加用户表单数据验证
+        const {form} = this.state;
+        const newFiledObj = {valid:true,value,error:''};
+
+        switch(filed){
+            case 'name': {
+                if(value.length >=5){
+                    newFiledObj.error = '用户最多输入4个字',
+                    newFiledObj.valid = false
+                } else if(value.length == 0) {
+                    newFiledObj.error = '请输入用户名',
+                    newFiledObj.valid = false
+                }
+                break;
+            }
+            case 'age':{
+                if(value < 1 || value > 100) {
+                    newFiledObj.error = '请输入有效的年龄1~100',
+                    newFiledObj.valid = false
+                }
+                break;
+            }
+            case 'gender':{
+                if(!value) {
+                    newFiledObj.error = '请选择性别',
+                    newFiledObj.valid = false
+                }
+                break;
+            }
+        }
+
         this.setState({
-           [filed]:value     
+            form:{
+                ...form,               
+                [filed]:newFiledObj 
+            }    
         })
     };
     fromSubmit(e){
@@ -22,11 +71,19 @@ class UserAdd extends React.Component{
         // alert(JSON.stringify(this.state))
 
         //ES6结构赋值拆解获取数据
-        const {name,age,gender} = this.state;
+        // const {name,age,gender} = this.state;
+        const {form:{name,age,gender}} = this.state;
+
+        //判断用户输入的是否合格
+        if(!name.valid || !age.valid || !gender.valid) {
+            alert('请填写正确的信息');
+            return
+        }
+
         //使用fetch()提交数据
         fetch('http://localhost:3000/user',{
             method:'post',
-            body:JSON.stringify({name,age,gender}),
+            body:JSON.stringify({name:name.value,age:age.value,gender:gender.value}),
             headers: {'Content-Type': 'application/json'}
         })
         .then(res=>res.json())
@@ -36,9 +93,23 @@ class UserAdd extends React.Component{
                 alert('用户添加成功');
                 //添加完成，清空列表
                 this.setState({
-                    name:'',
-                    age:0,
-                    gender:''
+                    form:{
+                        name:{
+                            valid:false,
+                            value:'',
+                            error:''
+                        },
+                        age:{
+                            valid:false,
+                            value:0,
+                            error:''
+                        },
+                        gender:{
+                            valid:false,
+                            value:'',
+                            error:''
+                        }
+                    }
                 })
             } else {
                 alert('添加失败')
@@ -48,6 +119,9 @@ class UserAdd extends React.Component{
         .catch(err => console.log(err))
     };
     render(){
+        //ES6结构赋值拆解获取数据
+        // const {name,age,gender} = this.state;
+        const {form:{name,age,gender}} = this.state;
         return (
             <div>
                 <header>
@@ -57,16 +131,16 @@ class UserAdd extends React.Component{
                     <form onSubmit={e=>this.fromSubmit(e)}>
                         <label htmlFor="name">用户名：</label>
                         <input type="text" id="name" 
-                        value={this.state.name} 
+                        value={name.value} 
                         onChange={e=>this.valueChange('name',e.target.value)}/>
                         <br/>
                         <label htmlFor="age">年龄：</label>
-                        <input type="number" id="age" min="0" 
-                        value={this.state.age} 
+                        <input type="number" id="age" 
+                        value={age.value} 
                         onChange={e=>this.valueChange('age',e.target.value,'number')}/>
                         <br/>
                         <label htmlFor="">性别：</label>
-                        <select value={this.state.gender} onChange={e=>this.valueChange('gender',e.target.value)}>
+                        <select value={gender.value} onChange={e=>this.valueChange('gender',e.target.value)}>
                             <option value="">请选择</option>
                             <option value="男">男</option>
                             <option value="女">女</option>
