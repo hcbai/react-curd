@@ -3,7 +3,6 @@ import React from 'react'
 
 function formProvider(fields){
     return function(Comp){
-
         const initialFormField = {};
         for(const key in fields) {
             initialFormField[key] = {
@@ -11,7 +10,6 @@ function formProvider(fields){
                 error : ''
             }
         }
-
         class FormComponent extends React.Component {
             constructor (props){
                 super(props);
@@ -20,7 +18,30 @@ function formProvider(fields){
                     formVaild : false //表示整个表单的校验状态
                 };
                 this.valueChange = this.valueChange.bind(this);
+                this.setValueChange = this.setValueChange.bind(this);
             }
+            //编辑用户 返回当前用户的值
+            setValueChange(values){
+                if(!values){
+                    return
+                }
+
+                const {form} = this.state;
+                let newForm = {...form};
+                for(let field in form) {
+                    if(form.hasOwnProperty(field)){
+                        if(typeof values[field] !== 'undefined'){
+                            newForm[field] = {...newForm[field], value: values[field]}
+                        }
+                        // 正常情况下主动设置的每个字段一定是有效的
+                        newForm[field].valid = true;
+                    }
+                }
+                this.setState({
+                    form:newForm
+                })
+            }
+            //添加用户
             valueChange(fieldName, value) {
                 const {form} = this.state;
                 const newFieldState = {value,valid:true,error:''};
@@ -50,7 +71,9 @@ function formProvider(fields){
             }
             render(){
                 const {form, formVaild} = this.state;
-                return <Comp {...this.props} form={form} formVaild={formVaild} onFormChange={this.valueChange} />
+                return <Comp {...this.props} form={form} formVaild={formVaild} 
+                onFormChange={this.valueChange} 
+                setFormValues={this.setValueChange} />
             }
         }
 

@@ -20,33 +20,9 @@
     },
     {
       "name": "ds",
-      "age": 5,
-      "gender": "男",
+      "age": 22,
+      "gender": "女",
       "id": 10003
-    },
-    {
-      "name": "fdf",
-      "age": 1,
-      "gender": "男",
-      "id": 10004
-    },
-    {
-      "name": "dsad",
-      "age": 2,
-      "gender": "男",
-      "id": 10005
-    },
-    {
-      "name": "dad",
-      "age": 22,
-      "gender": "男",
-      "id": 10006
-    },
-    {
-      "name": "das",
-      "age": 22,
-      "gender": "男",
-      "id": 10007
     }
   ],
   "book": [

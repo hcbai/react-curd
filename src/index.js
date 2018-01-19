@@ -10,8 +10,8 @@ import { Router, Route, hashHistory } from 'react-router'
 
 import UserAddPage from './pages/UserAdd'
 import HomePage from './pages/Home'
-import UserList from './pages/UserList'
-
+import UserListPage from './pages/UserList'
+import UserEditPage from './pages/UserEdit'
 
 
 ReactDOM.render((
@@ -19,7 +19,8 @@ ReactDOM.render((
             {/* <Route component={HomeLayout}> */}
                 <Route path='/' component={HomePage}/>
                 <Route path='/user/add' component={UserAddPage}/>
-                <Route path='/user/list' component={UserList}/>
+                <Route path='/user/list' component={UserListPage}/>
+                <Route path='/user/edit/:id' component={UserEditPage}/>
             {/* </Route> */}
         </Router>
         // <h2>jdsalk</h2>
