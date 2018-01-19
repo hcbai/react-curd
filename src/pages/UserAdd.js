@@ -100,6 +100,8 @@ class UserAdd extends React.Component{
             // console.log(res)
             if(res.id){
                 alert('用户添加成功');
+                
+
                 //添加完成，清空列表
                 // this.setState({                   
                 //     name:{
@@ -118,6 +120,7 @@ class UserAdd extends React.Component{
                 //         error:''
                 //     }                   
                 // })
+
             } else {
                 alert('添加失败')
             }

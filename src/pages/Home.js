@@ -10,7 +10,11 @@ class Home extends React.Component {
                     <h1>Welcome</h1>
                 </header>
                 <main>
-                    <Link to="/user/add">添加用户</Link>
+                    <h3>用户界面</h3>
+                    <ul>
+                        <li><Link to="/user/add">添加用户</Link></li>
+                        <li><Link to="/user/list">用户列表</Link></li>
+                    </ul>
                 </main>
             </div>
         )

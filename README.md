@@ -15,6 +15,13 @@
 
 ## 注意：bug已经解决  注意 react-router 4.x 和之前版本不一样 
 
+## 我们可以在添加用户之后，使用`this.context.router.push()`方法来跳转到用户列表页面：
+## 必须给UserAdd定义一个包含router属性的contextTypes
+## 使得组件中可以通过this.context.router来使用React Router提供的方法
+`UserAdd.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};`
+
 
 
 
