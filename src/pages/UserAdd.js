@@ -100,6 +100,9 @@ class UserAdd extends React.Component{
             // console.log(res)
             if(res.id){
                 alert('用户添加成功');
+                //用户添加完成 跳转到用户列表页面
+                this.context.router.push('/user/list');
+                return
                 
 
                 //添加完成，清空列表
@@ -170,6 +173,10 @@ class UserAdd extends React.Component{
             </div>
         )
     };
+}
+
+UserAdd.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 UserAdd = formProvider({

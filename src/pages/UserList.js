@@ -14,7 +14,7 @@ class UserList extends React.Component{
             this.setState({
                 userList:ref
             })
-            console.log(this.state.userList)
+            // console.log(this.state.userList)
         })
     };
     render(){
