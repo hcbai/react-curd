@@ -7,14 +7,14 @@ function formProvider(fields){
         const initialFormField = {};
         for(const key in fields) {
             initialFormField[key] = {
-                value:fields[key].defaultValue,
-                error:''
+                value : fields[key].defaultValue,
+                error : ''
             }
         }
 
         class FormComponent extends React.Component {
-            constructor (){
-                super();
+            constructor (props){
+                super(props);
                 this.state = {
                     form : initialFormField,
                     formVaild : false //表示整个表单的校验状态
@@ -25,6 +25,7 @@ function formProvider(fields){
                 const {form} = this.state;
                 const newFieldState = {value,valid:true,error:''};
                 const fieldRules = fields[fieldName].rules;
+
                 for(let i = 0; i < fieldRules.length; i++){
                     const {pattern, error} = fieldRules[i];
                     let valid = false;
@@ -34,7 +35,7 @@ function formProvider(fields){
                         valid = pattern.test(value)
                     }
                     if(!valid){
-                        newFieldState.valid = true;
+                        newFieldState.valid = false;
                         newFieldState.error = error;
                         break;
                     }

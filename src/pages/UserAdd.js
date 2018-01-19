@@ -95,7 +95,7 @@ class UserAdd extends React.Component{
             body:JSON.stringify({name:name.value,age:age.value,gender:gender.value}),
             headers: {'Content-Type': 'application/json'}
         })
-        .then(res=>res.json())
+        .then(res => res.json())
         .then(res => {
             // console.log(res)
             if(res.id){
@@ -123,7 +123,7 @@ class UserAdd extends React.Component{
             }
         })
         //处理提交失败
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     };
     render(){
         //ES6结构赋值拆解获取数据
@@ -158,7 +158,8 @@ class UserAdd extends React.Component{
                                 <option value="男">男</option>
                                 <option value="女">女</option>
                             </select>
-                        </FormItem>
+                        </FormItem> 
+                        <br/>
                         <br/>
                         <input type="submit" value="提交"/>
                     </form>
@@ -185,7 +186,7 @@ UserAdd = formProvider({
         ]
     },
     age : {
-        defaultValue:'',
+        defaultValue:0,
         rules : [
             {
                 pattern:function(value) {
