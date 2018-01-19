@@ -23,7 +23,7 @@
 };`
 
 ## 注意：以上为router3.x的方法，4.x方法已做更改
-## 把`this.context.router.push(&#39;/user/list&#39;)`; 换成`this.props.history.push({ pathname: &#39;/user/list&#39;})`就可以了
+## 把`this.context.router.push('/user/list')`; 换成`this.props.history.push({ pathname: '/user/list'})`就可以了
 
 
 
